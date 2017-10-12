@@ -9,5 +9,9 @@ namespace RPG {
             this.X = x;
             this.Y = y;
         }
+
+        public bool IsSameAs(Vector2D position) {
+            return position.X == X && position.Y == Y;
+        }
     }
 }

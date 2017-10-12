@@ -23,14 +23,10 @@ namespace RPG.Item {
             // 
         }
 
-        public char GetMapCharacter(Vector2D position)
-        {
-            return '$';
-        }
+        public Vector2D[] GetMapPositions() => new Vector2D[1] { Position };
 
-        public ConsoleColor GetMapCharacterColor(Vector2D position)
-        {
-            return ConsoleColor.Yellow;
-        }
+        public char GetMapCharacter(Vector2D position) => '$';
+
+        public ConsoleColor GetMapCharacterColor(Vector2D position) => ConsoleColor.Yellow;
     }
 }

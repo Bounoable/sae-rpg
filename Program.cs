@@ -1,5 +1,7 @@
 ﻿using System;
 using RPG.Map;
+using RPG.Item;
+using RPG.Character;
 
 namespace RPG
 {
@@ -7,13 +9,21 @@ namespace RPG
     {
         static void Main(string[] args)
         {
-            Character player1 = new Character();
-            Character player2 = new Character();
+            var level = new LevelGenerator();
 
-            IDrawable[] characters = new IDrawable[2] { player1, player2 };
+            var map = level.MapWidth(40).MapHeight(15).GenerateMap();
+            var obstacles = level.GenerateObstacles();
+            var npcs = level.GenerateNPCs();
 
-            Map.Map map = new Map.Map(40, 10);
-            Map.MapDrawer mapDrawer = new Map.MapDrawer(map, characters);
+            NPC npc1 = new NPC(new Vector2D(15, 9));
+
+            IDrawable[] characters = new IDrawable[0];
+
+            Store store1 = new Store(new Vector2D(20, 8));
+
+            Store[] stores = new Store[1] { store1 };
+
+            MapDrawer mapDrawer = new MapDrawer(map, characters, npcs, obstacles, stores);
 
             mapDrawer.Draw();
         }
