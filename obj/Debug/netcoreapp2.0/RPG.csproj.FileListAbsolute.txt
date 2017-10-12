@@ -1,0 +1,10 @@
+/Users/Bono/Games Programming/RPG/bin/Debug/netcoreapp2.0/RPG.deps.json
+/Users/Bono/Games Programming/RPG/bin/Debug/netcoreapp2.0/RPG.runtimeconfig.json
+/Users/Bono/Games Programming/RPG/bin/Debug/netcoreapp2.0/RPG.runtimeconfig.dev.json
+/Users/Bono/Games Programming/RPG/bin/Debug/netcoreapp2.0/RPG.dll
+/Users/Bono/Games Programming/RPG/bin/Debug/netcoreapp2.0/RPG.pdb
+/Users/Bono/Games Programming/RPG/obj/Debug/netcoreapp2.0/RPG.csproj.CoreCompileInputs.cache
+/Users/Bono/Games Programming/RPG/obj/Debug/netcoreapp2.0/RPG.AssemblyInfoInputs.cache
+/Users/Bono/Games Programming/RPG/obj/Debug/netcoreapp2.0/RPG.AssemblyInfo.cs
+/Users/Bono/Games Programming/RPG/obj/Debug/netcoreapp2.0/RPG.dll
+/Users/Bono/Games Programming/RPG/obj/Debug/netcoreapp2.0/RPG.pdb
