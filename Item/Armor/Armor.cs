@@ -1,14 +1,18 @@
 namespace RPG.Item.Armor {
     class Armor: Item, IArmor
     {
-        public int PhysicalDefense { get; protected set; }
-        public int MagicDefense { get; protected set; }
+        protected int physicalDefense;
+        protected int magicDefense;
 
         public Armor(string name, int physical, int magic)
         {
             this.Name = name;
-            this.PhysicalDefense = physical;
-            this.MagicDefense = magic;
+            this.physicalDefense = physical;
+            this.magicDefense = magic;
         }
+
+        public int GetPhysicalDefense() => this.physicalDefense;
+
+        public int GetMagicDefense() => this.magicDefense;
     }
 }

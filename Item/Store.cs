@@ -24,7 +24,7 @@ namespace RPG.Item {
         }
 
         public Vector2D[] GetMapPositions() => new Vector2D[1] { Position };
-
+        
         public char GetMapCharacter(Vector2D position) => '$';
 
         public ConsoleColor GetMapCharacterColor(Vector2D position) => ConsoleColor.Yellow;

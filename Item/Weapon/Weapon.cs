@@ -7,8 +7,7 @@ namespace RPG.Item.Weapon {
             Epic,
             Legendary
         }
-
-        public int Damage { get; protected set; }
+        
         public int Durability { get; protected set; }
         public Rarity RarityType { get; protected set; }
     }
