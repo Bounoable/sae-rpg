@@ -9,6 +9,11 @@ namespace RPG.Item.Weapon {
         }
         
         public int Durability { get; protected set; }
-        public Rarity RarityType { get; protected set; }
+        public Rarity Type { get; protected set; }
+
+        protected int CalculateDamage(int baseDamage)
+        {
+            return baseDamage;
+        }
     }
 }

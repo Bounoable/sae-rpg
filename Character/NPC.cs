@@ -3,7 +3,7 @@ using System;
 namespace RPG.Character {
     class NPC: Character
     {
-        public NPC(Vector2D position): base(position)
+        public NPC(string name, Vector2D position): base(name, position)
         {}
 
         public override char GetMapCharacter(Vector2D Position) => 'Ф';

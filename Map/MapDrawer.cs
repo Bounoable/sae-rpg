@@ -61,7 +61,7 @@ namespace RPG.Map {
                 return;
             } catch (Exception) {}
 
-            Console.Write("  ");
+            Console.Write(". ");
         }
 
         protected IDrawable GetObjectAt(Vector2D position)

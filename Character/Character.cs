@@ -3,7 +3,7 @@ using RPG.Map;
 using RPG.Item;
 
 namespace RPG.Character {
-    abstract class Character: IDrawable
+    abstract class Character: IDrawable, IMovable
     {
         public enum Direction {
             Up,
@@ -12,16 +12,21 @@ namespace RPG.Character {
             Right
         }
 
-        public Vector2D Position { get; protected set; }
-        public Direction Facing { get; protected set; } = Direction.Down;
-        public Inventory Inventory { get; protected set; } = new Inventory();
+        public string Name { get; protected set; }
 
-        public Character(Vector2D position)
+        protected Vector2D position;
+        protected Direction facing = Direction.Down;
+        protected Inventory inventory = new Inventory();
+
+        public Character(string name, Vector2D position)
         {
-            this.Position = position;
+            this.Name = name;
+            this.position = position;
         }
 
-        public Vector2D[] GetMapPositions() => new Vector2D[1] { Position };
+        public bool IsAtPosition(Vector2D position) => this.position.IsSameAs(position);
+
+        public Vector2D[] GetMapPositions() => new Vector2D[1] { position };
 
         abstract public char GetMapCharacter(Vector2D Position);
 

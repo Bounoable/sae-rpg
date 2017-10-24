@@ -3,6 +3,6 @@ namespace RPG.Item.Weapon {
     {
         protected int damage;
 
-        public int GetMagicalDamage() => this.damage;
+        public int GetMagicalDamage() => CalculateDamage(damage);
     }
 }

@@ -1,13 +1,14 @@
 namespace RPG.Item.Weapon {
-    class Bow: Weapon, IRanged
+    class Bow: PhysicalWeapon, IRanged
     {
         protected int range;
 
-        public Bow(string name, int damage, int durability, int range)
+        public Bow(string name, int damage, int durability, int range, Rarity type)
         {
             this.Name = name;
-            this.Damage = damage;
             this.Durability = durability;
+            this.Type = type;
+            this.damage = damage;
             this.range = range;
         }
 

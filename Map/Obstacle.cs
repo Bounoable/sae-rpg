@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace RPG.Map {
     abstract class Obstacle: IDrawable
     {
+        protected static Random randomizer = new Random();
         protected Vector2D topLeftPosition;
         protected Dictionary<Vector2D, char> characters = new Dictionary<Vector2D, char>();
 
@@ -11,6 +12,17 @@ namespace RPG.Map {
         {
             this.topLeftPosition = position;
             this.Generate();
+        }
+
+        public bool IsAtPosition(Vector2D position)
+        {
+            foreach (Vector2D pos in GetMapPositions()) {
+                if (pos.IsSameAs(position)) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public Vector2D[] GetMapPositions()

@@ -23,6 +23,8 @@ namespace RPG.Item {
             // 
         }
 
+        public bool IsAtPosition(Vector2D position) => this.Position.IsSameAs(position);
+
         public Vector2D[] GetMapPositions() => new Vector2D[1] { Position };
         
         public char GetMapCharacter(Vector2D position) => '$';

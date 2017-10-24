@@ -1,4 +1,5 @@
 using System;
+using RPG.Item;
 using RPG.Character;
 using System.Collections.Generic;
 
@@ -6,37 +7,46 @@ namespace RPG.Map {
     class LevelGenerator
     {
         protected static Random randomizer = new Random();
-        protected int width = 30;
-        protected int height = 10;
+        protected int width;
+        protected int height;
+        protected int currentLevel = 1;
 
-        protected List<IDrawable> generatedObstacles = new List<IDrawable>();
+        protected List<IDrawable> generatedObjects = new List<IDrawable>();
+        protected IDrawable[] characters;
 
-        public LevelGenerator()
+        public LevelGenerator(int mapWidth, int mapHeight, IDrawable[] characters)
         {
-            // 
+            this.width = mapWidth;
+            this.height = mapHeight;
+            this.characters = characters;
         }
 
-        public LevelGenerator MapWidth(int width)
+        public Level GetNext()
         {
-            this.width = width;
-            return this;
+            Level level = Generate(currentLevel);
+            currentLevel++;
+
+            return level;
         }
 
-        public LevelGenerator MapHeight(int height)
+        protected Level Generate(int level)
         {
-            this.height = height;
-            return this;
+            ClearGenerated();
+            return new Level(level, GenerateMap(level), characters, GenerateNPCs(), GenerateObstacles(), GenerateStores());
         }
 
-        public Map GenerateMap()
+        protected void ClearGenerated() => generatedObjects.Clear();
+
+        protected Map GenerateMap(int level)
         {
-            return new Map(width, height);
+            return new Map(width, height, level);
         }
 
-        public IDrawable[] GenerateObstacles()
+        protected IDrawable[] GenerateObstacles()
         {
             var obstacles = new List<IDrawable>();
-            var count = randomizer.Next(15, 21);
+            int approx = (int)Math.Round((float)(width * height / 10));
+            int count = randomizer.Next(approx - 5, approx + 10);
 
             for (var i = 0; i < count; ++i) {
                 var type = randomizer.Next(0, 2);
@@ -54,7 +64,7 @@ namespace RPG.Map {
                 }
             }
 
-            this.generatedObstacles = obstacles;
+            this.generatedObjects = obstacles;
 
             return obstacles.ToArray();
         }
@@ -104,7 +114,7 @@ namespace RPG.Map {
         public IDrawable[] GenerateNPCs()
         {
             var npcs = new List<IDrawable>();
-            var count = randomizer.Next(3, 7);
+            var count = randomizer.Next(5, 10);
 
             for (var i = 0; i < count; ++i) {
                 npcs.Add(GenerateNPC());
@@ -120,10 +130,35 @@ namespace RPG.Map {
             while (npc == null) {
                 npc = new NPC(GetRandomPosition());
 
-                if (ObjectOverlapsWith(generatedObstacles.ToArray(), npc)) npc = null;
+                if (ObjectOverlapsWith(generatedObjects.ToArray(), npc)) npc = null;
             }
 
             return npc;
+        }
+
+        protected IDrawable[] GenerateStores()
+        {
+            var stores = new List<IDrawable>();
+            var count = randomizer.Next(3, 7);
+
+            for (var i = 0; i < count; ++i) {
+                stores.Add(GenerateStore());
+            }
+
+            return stores.ToArray();
+        }
+
+        protected IDrawable GenerateStore()
+        {
+            Store store = null;
+
+            while (store == null) {
+                store = new Store(GetRandomPosition());
+
+                if (ObjectOverlapsWith(generatedObjects.ToArray(), store)) store = null;
+            }
+
+            return store;
         }
     }
 }
