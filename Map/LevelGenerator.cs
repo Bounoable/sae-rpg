@@ -12,13 +12,13 @@ namespace RPG.Map {
         protected int currentLevel = 1;
 
         protected List<IDrawable> generatedObjects = new List<IDrawable>();
-        protected IDrawable[] characters;
+        protected Character.Character character;
 
-        public LevelGenerator(int mapWidth, int mapHeight, IDrawable[] characters)
+        public LevelGenerator(int mapWidth, int mapHeight, Character.Character character)
         {
             this.width = mapWidth;
             this.height = mapHeight;
-            this.characters = characters;
+            this.character = character;
         }
 
         public Level GetNext()
@@ -32,7 +32,7 @@ namespace RPG.Map {
         protected Level Generate(int level)
         {
             ClearGenerated();
-            return new Level(level, GenerateMap(level), characters, GenerateNPCs(), GenerateObstacles(), GenerateStores());
+            return new Level(level, GenerateMap(level), character, GenerateNPCs(), GenerateObstacles(), GenerateStores());
         }
 
         protected void ClearGenerated() => generatedObjects.Clear();
@@ -103,9 +103,7 @@ namespace RPG.Map {
         protected bool ObjectOverlapsWith(IDrawable[] drawables, IDrawable generated)
         {
             foreach (IDrawable drawable in drawables) {
-                if (Array.FindAll(drawable.GetMapPositions(), position => {
-                    return Array.FindAll(generated.GetMapPositions(), genPos => genPos.IsSameAs(position)).Length > 0;
-                }).Length > 0) return true;
+                if (Array.FindAll(drawable.GetMapPositions(), generated.IsAtPosition).Length > 0) return true;
             }
 
             return false;
@@ -128,7 +126,7 @@ namespace RPG.Map {
             NPC npc = null;
 
             while (npc == null) {
-                npc = new NPC(GetRandomPosition());
+                npc = new NPC("", GetRandomPosition());
 
                 if (ObjectOverlapsWith(generatedObjects.ToArray(), npc)) npc = null;
             }

@@ -5,18 +5,12 @@ namespace RPG.Map {
     class MapDrawer
     {
         protected Map map;
-        protected IDrawable[] characters;
-        protected IDrawable[] npcs;
-        protected IDrawable[] obstacles;
-        protected IDrawable[] stores;
+        protected IDrawable[] objects;
 
-        public MapDrawer(Map map, IDrawable[] characters, IDrawable[] npcs, IDrawable[] obstacles, IDrawable[] stores)
+        public MapDrawer(Map map, IDrawable[] objects)
         {
             this.map = map;
-            this.characters = characters;
-            this.npcs = npcs;
-            this.obstacles = obstacles;
-            this.stores = stores;
+            this.objects = objects;
         }
 
         public void Draw()
@@ -66,27 +60,9 @@ namespace RPG.Map {
 
         protected IDrawable GetObjectAt(Vector2D position)
         {
-            foreach (IDrawable character in characters) {
-                if (Array.FindAll(character.GetMapPositions(), charPos => charPos.IsSameAs(position)).Length > 0) {
-                    return character;
-                }
-            }
-
-            foreach (IDrawable npc in npcs) {
-                if (Array.FindAll(npc.GetMapPositions(), npcPos => npcPos.IsSameAs(position)).Length > 0) {
-                    return npc;
-                }
-            }
-
-            foreach (IDrawable obstacle in obstacles) {
-                if (Array.FindAll(obstacle.GetMapPositions(), obstaclePos => obstaclePos.IsSameAs(position)).Length > 0) {
-                    return obstacle;
-                }
-            }
-
-            foreach (IDrawable store in stores) {
-                if (Array.FindAll(store.GetMapPositions(), storePos => storePos.IsSameAs(position)).Length > 0) {
-                    return store;
+            foreach (IDrawable obj in objects) {
+                if (obj.IsAtPosition(position)) {
+                    return obj;
                 }
             }
 
@@ -98,17 +74,6 @@ namespace RPG.Map {
             Console.ForegroundColor = drawable.GetMapCharacterColor(position);
             Console.Write($"{drawable.GetMapCharacter(position)} ");
             Console.ResetColor();
-        }
-
-        protected IDrawable GetObstacleAt(Vector2D position)
-        {
-            foreach (IDrawable obstacle in obstacles) {
-                if (Array.FindAll(obstacle.GetMapPositions(), obstaclePos => obstaclePos.IsSameAs(position)).Length > 0) {
-                    return obstacle;
-                }
-            }
-
-            throw new Exception("No obstacle at this position.");
         }
     }
 }
